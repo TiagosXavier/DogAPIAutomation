@@ -55,4 +55,16 @@ public class BreedTest {
                 .body("message", containsString("https://images.dog.ceo/breeds/"));
     }
 
+    @Test
+    @DisplayName("Buscar a lista de todos os Dogs - CENÁRIO DE FALHA SIMULADA")
+    public void testBuscarDogsComFalhaSimulada() {
+        given()
+                .when()
+                .get("/breeds/list/all")
+                .then()
+                .statusCode(500)
+                .body("status", equalTo("success"))
+                .body("message", notNullValue());
+    }
+
 }
