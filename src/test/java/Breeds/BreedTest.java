@@ -1,6 +1,7 @@
 package Breeds;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.*;
@@ -55,6 +56,7 @@ public class BreedTest {
                 .body("message", containsString("https://images.dog.ceo/breeds/"));
     }
 
+    @Disabled("Desabilitado devido simulaçao de falha no relatorio")
     @Test
     @DisplayName("Buscar a lista de todos os Dogs - CENÁRIO DE FALHA SIMULADA")
     public void testBuscarDogsComFalhaSimulada() {
