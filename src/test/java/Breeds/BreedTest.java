@@ -1,6 +1,5 @@
 package Breeds;
 
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,7 +7,7 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 @DisplayName("Testes de API dos Breeds da Dog API")
-public class BreedTests {
+public class BreedTest {
 
     private static final String BASE_URI = "https://dog.ceo/api";
 
