@@ -33,7 +33,7 @@ Siga os passos abaixo para configurar e executar os testes.
 Abra seu terminal ou prompt de comando e execute:
 
 ```
-git clone <URL_DO_SEU_REPOSITORIO>
+git clone https://github.com/TiagosXavier/DogAPIAutomation.git
 cd DogAPIAutomation
 
 ```
