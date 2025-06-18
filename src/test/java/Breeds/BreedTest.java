@@ -56,7 +56,7 @@ public class BreedTest {
                 .body("message", containsString("https://images.dog.ceo/breeds/"));
     }
 
-    @Disabled("Desabilitado devido simulaçao de falha no relatorio")
+    @Disabled("Desabilitado na pipeline devido simulaçao de falha no relatorio")
     @Test
     @DisplayName("Buscar a lista de todos os Dogs - CENÁRIO DE FALHA SIMULADA")
     public void testBuscarDogsComFalhaSimulada() {

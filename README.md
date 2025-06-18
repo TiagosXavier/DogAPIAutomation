@@ -22,7 +22,7 @@ Para rodar este projeto na sua máquina, você precisará ter instalado:
 
 -   **Java Development Kit (JDK) 11 ou superior**
 -   **Apache Maven 3.6.0 ou superior**
--   **Git** (opcional, se for clonar o repositório)
+-   **Git** 
 -   **Allure Commandline**: Ferramenta de linha de comando do Allure para gerar relatórios.
 
 ### Configuração do Apache Maven no seu PC
@@ -86,7 +86,7 @@ Para rodar este projeto na sua máquina, você precisará ter instalado:
 
 Siga os passos abaixo para configurar e executar os testes.
 
-### 1. Clonar o Repositório (se aplicável)
+### 1. Clonar o Repositório 
 
 Abra seu terminal ou prompt de comando e execute:
 
@@ -105,86 +105,72 @@ Abra o arquivo `pom.xml` na raiz do seu projeto e adicione as seguintes dependê
 XML
 
 ```
-<properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <junit.jupiter.version>5.10.0</junit.jupiter.version>
-    <rest-assured.version>5.3.0</rest-assured.version>
-    <allure.version>2.24.0</allure.version> <allure.maven.version>2.12.0</allure.maven.version> </properties>
+ <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.jupiter.version>5.10.0</junit.jupiter.version> <rest-assured.version>5.3.0</rest-assured.version>
+        <allure.version>2.24.0</allure.version> <allure.maven.version>2.12.0</allure.maven.version> <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version> <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version> <aspectj.version>1.9.21</aspectj.version>
+    </properties>
 
-<dependencies>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-api</artifactId>
-        <version>${junit.jupiter.version}</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit.jupiter.version}</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>io.rest-assured</groupId>
-        <artifactId>rest-assured</artifactId>
-        <version>${rest-assured.version}</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>io.qameta.allure</groupId>
-        <artifactId>allure-junit5</artifactId>
-        <version>${allure.version}</version>
-        <scope>test</scope>
-    </dependency>
-</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.11.0</version>
-            <configuration>
-                <source>${maven.compiler.source}</source>
-                <target>${maven.compiler.target}</target>
-            </configuration>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.1.2</version>
-            <configuration>
-                <testFailureIgnore>true</testFailureIgnore>
-                <argLine>
-                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    -Dfile.encoding=UTF-8
-                </argLine>
-                <systemProperties>
-                    <property>
-                        <name>allure.results.directory</name>
-                        <value>${project.build.directory}/allure-results</value>
-                    </property>
-                </systemProperties>
-            </configuration>
-            <dependencies>
-                <dependency>
-                    <groupId>org.aspectj</groupId>
-                    <artifactId>aspectjweaver</artifactId>
-                    <version>1.9.19</version> </dependency>
-            </dependencies>
-        </plugin>
-        <plugin>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-maven</artifactId>
-            <version>${allure.maven.version}</version>
-            <configuration>
-                <reportDirectory>${project.build.directory}/allure-report</reportDirectory>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
+            <artifactId>allure-junit5</artifactId>
+            <version>2.23.0</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>io.qameta.allure.junitplatform.AllureJunitPlatform</value>
+                        </property>
+                    </properties>
+                    <systemPropertyVariables>
+                        <allure.results.directory>target/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.15.2</version>
+            </plugin>
+
+        </plugins>
+    </build>
 
 ```
 
